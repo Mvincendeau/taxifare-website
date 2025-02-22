@@ -34,15 +34,6 @@ dropoff_longitude = st.number_input("Dropoff Longitude")
 dropoff_latitude = st.number_input("Dropoff Latitude")
 passenger_count = st.number_input("Passenger Count", min_value=1)
 
-# Create a map centered around the pickup location
-m = folium.Map(location=[pickup_latitude, pickup_longitude], zoom_start=13)
-
-# Add markers for pickup and dropoff locations
-folium.Marker([pickup_latitude, pickup_longitude], popup="Pickup Location").add_to(m)
-folium.Marker([dropoff_latitude, dropoff_longitude], popup="Dropoff Location").add_to(m)
-
-# Display the map
-st_folium(m, width=700, height=500)
 
 # '''
 # ## Once we have these, let's call our API in order to retrieve a prediction
