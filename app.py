@@ -1,28 +1,30 @@
 import streamlit as st
 import requests
 import datetime
+from streamlit_folium import st_folium
+
 
 '''
-# TaxiFareModel front
+### 🐯 Welcome to Wild Ride 🐯
 '''
 
-st.markdown('''
-Remember that there are several ways to output content into your web page...
+# st.markdown('''
+# Remember that there are several ways to output content into your web page...
 
-Either as with the title by just creating a string (or an f-string). Or as with this paragraph using the `st.` functions
-''')
+# Either as with the title by just creating a string (or an f-string). Or as with this paragraph using the `st.` functions
+# ''')
 
-'''
-## Here we would like to add some controllers in order to ask the user to select the parameters of the ride
+# '''
+# ## Here we would like to add some controllers in order to ask the user to select the parameters of the ride
 
-1. Let's ask for:
-- date and time
-- pickup longitude
-- pickup latitude
-- dropoff longitude
-- dropoff latitude
-- passenger count
-'''
+# 1. Let's ask for:
+# - date and time
+# - pickup longitude
+# - pickup latitude
+# - dropoff longitude
+# - dropoff latitude
+# - passenger count
+# '''
 
 # Collect user input
 date_time = st.date_input("Pickup Date and Time", datetime.datetime.now())
@@ -32,13 +34,23 @@ dropoff_longitude = st.number_input("Dropoff Longitude")
 dropoff_latitude = st.number_input("Dropoff Latitude")
 passenger_count = st.number_input("Passenger Count", min_value=1)
 
-'''
-## Once we have these, let's call our API in order to retrieve a prediction
+# Create a map centered around the pickup location
+m = folium.Map(location=[pickup_latitude, pickup_longitude], zoom_start=13)
 
-See ? No need to load a `model.joblib` file in this app, we do not even need to know anything about Data Science in order to retrieve a prediction...
+# Add markers for pickup and dropoff locations
+folium.Marker([pickup_latitude, pickup_longitude], popup="Pickup Location").add_to(m)
+folium.Marker([dropoff_latitude, dropoff_longitude], popup="Dropoff Location").add_to(m)
 
-🤔 How could we call our API ? Off course... The `requests` package 💡
-'''
+# Display the map
+st_folium(m, width=700, height=500)
+
+# '''
+# ## Once we have these, let's call our API in order to retrieve a prediction
+
+# See ? No need to load a `model.joblib` file in this app, we do not even need to know anything about Data Science in order to retrieve a prediction...
+
+# 🤔 How could we call our API ? Off course... The `requests` package 💡
+# '''
 
 url = 'https://taxifare.lewagon.ai/predict'
 
