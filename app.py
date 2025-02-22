@@ -74,10 +74,10 @@ prediction = None
 # Retrieve the prediction from the JSON response
 if response.status_code == 200:
     prediction = response.json().get('fare')
-    st.success(f"The estimated fare is: ${prediction:.2f}")
+    st.success(f"The estimated fare is: ${prediction}")
 else:
     st.error("Error: Unable to retrieve the prediction. Please check the parameters and try again.")
 
 # Display the prediction if available
 if prediction is not None:
-    st.write(f"Your ride will only cost ${prediction:.2f}")
+    st.write(f"Your ride will only cost ${prediction}")
